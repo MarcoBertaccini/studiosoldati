@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Tecnico Soldati — Progettazione a Rimini</title>
+<meta name="description" content="Studio Tecnico Soldati, Rimini. Progettazione architettonica e strutturale, sismica, impiantistica, catasti e urbanistica. Arch. Paolo Soldati · Ing. Massimiliano Soldati.">
+<meta name="theme-color" content="#0D1620">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Studio Tecnico Soldati — Progettazione a Rimini">
+<meta property="og:description" content="Progettazione architettonica e strutturale, sismica, impiantistica, catasti e urbanistica. Rimini.">
+<meta property="og:locale" content="it_IT">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+/* ============================================================
+   STUDIO TECNICO SOLDATI — landing page
+   Design: drafting / blueprint. Single self-contained file.
+   ============================================================ */
+
+/* ---------- Tokens (light = default) ---------- */
+:root{
+  --ink:#0D1620;         /* navy da disegno, ground scuro */
+  --paper:#ECEAE3;       /* carta tecnica calda */
+  --paper-2:#E3E0D7;     /* carta leggermente più scura */
+  --graphite:#5A6169;    /* testo secondario, neutro con bias blu */
+  --line:#2E4A6B;        /* blueprint line */
+  --line-soft:rgba(46,74,107,.16);
+  --accent:#D2603A;      /* arancio segnale/livella */
+  --accent-2:#B94E2C;
+
+  --bg:var(--paper);
+  --bg-elevated:#F4F2EC;
+  --fg:var(--ink);
+  --fg-muted:var(--graphite);
+  --hairline:var(--line-soft);
+  --grid:rgba(13,22,32,.055);
+
+  --maxw:1240px;
+  --gutter:clamp(1rem,4vw,3.25rem);
+
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",monospace;
+
+  --step--1:clamp(.78rem,.75rem + .15vw,.86rem);
+  --step-0:clamp(1rem,.96rem + .2vw,1.12rem);
+  --step-1:clamp(1.2rem,1.1rem + .5vw,1.5rem);
+  --step-2:clamp(1.6rem,1.35rem + 1.1vw,2.4rem);
+  --step-3:clamp(2.2rem,1.7rem + 2.4vw,3.9rem);
+  --step-4:clamp(2.4rem,1.5rem + 3.9vw,6rem);
+
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+/* ---------- Dark (system, unless explicitly light) ---------- */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1620;
+    --paper-2:#111d29;
+    --bg:#0A121A;
+    --bg-elevated:#121E2A;
+    --fg:#EBEEF2;
+    --fg-muted:#8A97A6;
+    --line:#3E6690;
+    --line-soft:rgba(120,164,210,.18);
+    --grid:rgba(150,185,220,.06);
+    --accent:#E4713F;
+    --accent-2:#F1885A;
+    --hairline:rgba(120,164,210,.18);
+  }
+}
+/* explicit toggle wins both ways */
+:root[data-theme="dark"]{
+  --paper:#0D1620; --paper-2:#111d29; --bg:#0A121A; --bg-elevated:#121E2A;
+  --fg:#EBEEF2; --fg-muted:#8A97A6; --line:#3E6690;
+  --line-soft:rgba(120,164,210,.18); --grid:rgba(150,185,220,.06);
+  --accent:#E4713F; --accent-2:#F1885A; --hairline:rgba(120,164,210,.18);
+}
+
+/* ---------- Reset / base ---------- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--f-body);
+  font-size:var(--step-0);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;font-family:var(--f-display);font-weight:800;line-height:1.02;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+
+/* mono label / eyebrow */
+.label{
+  font-family:var(--f-mono);
+  font-size:var(--step--1);
+  font-weight:500;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.label--muted{color:var(--fg-muted)}
+
+/* section frame */
+.section{position:relative;padding-block:clamp(4rem,9vw,8rem)}
+.section__index{
+  font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.18em;
+  color:var(--fg-muted);text-transform:uppercase;
+  display:flex;align-items:center;gap:.9rem;margin-bottom:1.4rem;
+}
+.section__index::after{content:"";height:1px;flex:1;background:var(--hairline);max-width:120px}
+
+/* ---------- Scroll progress ---------- */
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:100%;z-index:60;
+  background:transparent;pointer-events:none;
+}
+.progress__bar{height:100%;width:0;background:var(--accent);transform-origin:left}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;
+  padding:1rem var(--gutter);
+  background:color-mix(in srgb,var(--bg) 78%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hairline);
+}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--f-mono);font-weight:600;letter-spacing:.04em}
+.brand__mark{
+  width:26px;height:26px;flex:none;border:1.5px solid var(--fg);
+  display:grid;place-items:center;position:relative;
+}
+.brand__mark::before,.brand__mark::after{content:"";position:absolute;background:var(--accent)}
+.brand__mark::before{width:12px;height:1.5px}
+.brand__mark::after{height:12px;width:1.5px}
+.brand__name span{color:var(--fg-muted)}
+.nav__links{display:flex;align-items:center;gap:1.6rem;font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.06em;text-transform:uppercase}
+.nav__links a{color:var(--fg-muted);transition:color .2s}
+.nav__links a:hover{color:var(--fg)}
+.nav__cta{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.05em;
+  padding:.5rem .9rem;border:1px solid var(--fg);color:var(--fg);
+  transition:background .2s,color .2s;
+}
+.nav__cta:hover{background:var(--fg);color:var(--bg)}
+@media (max-width:860px){
+  .nav__links{display:none}
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:min(92vh,860px);
+  display:flex;align-items:flex-end;
+  padding-top:clamp(6rem,12vh,9rem);
+  padding-bottom:clamp(3rem,6vw,5rem);
+  color:#EAF0F6;
+  overflow:hidden;
+  isolation:isolate;
+}
+/* photo + fallback gradient */
+.hero__bg{
+  position:absolute;inset:0;z-index:-3;
+  background:
+    linear-gradient(180deg,rgba(13,22,32,.55),rgba(13,22,32,.86)),
+    radial-gradient(120% 90% at 78% 0%,#1c3049 0%,#0d1620 62%);
+  background-color:#0D1620;
+}
+.hero__bg img{
+  position:absolute;inset:0;width:100%;height:112%;object-fit:cover;
+  z-index:-1;opacity:.42;mix-blend-mode:luminosity;
+  will-change:transform;
+}
+.hero__bg::after{ /* darken over photo for legibility */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(13,22,32,.35) 0%,rgba(13,22,32,.72) 60%,rgba(13,22,32,.92) 100%);
+}
+/* blueprint grid overlay */
+.hero__grid{
+  position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(120,164,210,.10) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,164,210,.10) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent);
+}
+/* technical crosshair marks */
+.hero__marks{position:absolute;inset:0;z-index:-2;pointer-events:none;color:rgba(150,185,220,.5)}
+
+.hero__inner{width:100%;display:grid;grid-template-columns:1fr;gap:2rem}
+.hero__meta{
+  display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;
+  font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(200,216,232,.72);
+}
+.hero__meta .dot{color:var(--accent)}
+.hero h1{
+  font-size:var(--step-4);font-weight:900;letter-spacing:-.03em;
+  max-width:16ch;color:#F3F7FB;overflow-wrap:break-word;
+}
+.hero h1 em{font-style:normal;color:var(--accent);position:relative}
+.hero__sub{
+  max-width:52ch;font-size:var(--step-1);line-height:1.45;
+  color:rgba(214,226,238,.86);font-weight:400;
+}
+.hero__actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:.4rem}
+
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--f-mono);font-size:var(--step--1);font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.95rem 1.5rem;border:1px solid transparent;
+  transition:transform .25s var(--ease),background .25s,color .25s,border-color .25s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn--primary{background:var(--accent);color:#12070a}
+.btn--primary:hover{background:#fff;color:var(--ink)}
+.btn--ghost{border-color:rgba(200,216,232,.5);color:#EAF0F6}
+.btn--ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+.btn__arrow{transition:transform .25s var(--ease)}
+.btn:hover .btn__arrow{transform:translate(3px,-3px)}
+
+.hero__foot{
+  position:absolute;left:var(--gutter);right:var(--gutter);bottom:1rem;z-index:2;
+  display:flex;justify-content:space-between;gap:1rem;
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(180,200,220,.5);
+  border-top:1px solid rgba(120,164,210,.2);padding-top:.7rem;
+}
+@media (max-width:620px){.hero__foot span:nth-child(2){display:none}}
+
+/* ============================================================
+   MANIFESTO
+   ============================================================ */
+.manifesto{background:var(--bg)}
+.manifesto__lead{
+  font-family:var(--f-display);font-weight:600;letter-spacing:-.02em;
+  font-size:var(--step-3);line-height:1.08;max-width:22ch;
+}
+.manifesto__lead .hl{color:var(--accent)}
+.manifesto__grid{
+  margin-top:clamp(2.5rem,5vw,4rem);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1px;background:var(--hairline);border:1px solid var(--hairline);
+}
+.manifesto__cell{background:var(--bg);padding:1.6rem}
+.manifesto__cell .k{font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.6rem}
+.manifesto__cell .v{color:var(--fg-muted);font-size:var(--step-0)}
+
+/* ============================================================
+   SERVIZI
+   ============================================================ */
+.services__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1rem}
+.services__title{font-size:var(--step-2);max-width:14ch}
+.services__note{max-width:34ch;color:var(--fg-muted);font-size:var(--step-0)}
+.svc-list{margin-top:clamp(2rem,4vw,3.2rem);border-top:1px solid var(--hairline)}
+.svc{
+  display:grid;grid-template-columns:5.5rem 1fr auto;gap:1.5rem;align-items:center;
+  padding:clamp(1.3rem,2.5vw,2rem) 0;border-bottom:1px solid var(--hairline);
+  position:relative;transition:padding-left .3s var(--ease);
+}
+.svc::before{
+  content:"";position:absolute;left:-2px;top:0;bottom:0;width:2px;
+  background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform .35s var(--ease);
+}
+.svc:hover{padding-left:1rem}
+.svc:hover::before{transform:scaleY(1)}
+.svc__num{font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.1em;color:var(--fg-muted)}
+.svc__name{font-family:var(--f-display);font-weight:700;font-size:var(--step-1);letter-spacing:-.01em}
+.svc__desc{color:var(--fg-muted);font-size:var(--step-0);margin-top:.3rem;max-width:56ch}
+.svc__tag{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-muted);white-space:nowrap;border:1px solid var(--hairline);padding:.35rem .6rem}
+@media (max-width:720px){
+  .svc{grid-template-columns:3rem 1fr;gap:.8rem 1rem}
+  .svc__tag{grid-column:2;justify-self:start;margin-top:.5rem}
+}
+
+/* ============================================================
+   PROCESSO
+   ============================================================ */
+.process{background:var(--bg-elevated);border-block:1px solid var(--hairline)}
+.process__title{font-size:var(--step-2);max-width:16ch;margin-bottom:clamp(2rem,4vw,3rem)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hairline);border:1px solid var(--hairline)}
+.step{background:var(--bg-elevated);padding:1.7rem 1.4rem;position:relative;min-height:200px;display:flex;flex-direction:column}
+.step__n{font-family:var(--f-mono);font-size:var(--step-2);font-weight:600;color:var(--accent);line-height:1}
+.step__line{height:1px;background:var(--hairline);margin:1.1rem 0;position:relative;overflow:hidden}
+.step__line::after{content:"";position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .8s var(--ease)}
+.step.in .step__line::after{transform:scaleX(1)}
+.step__name{font-family:var(--f-display);font-weight:700;font-size:var(--step-1);margin-bottom:.5rem}
+.step__desc{color:var(--fg-muted);font-size:var(--step--1)}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* ============================================================
+   STUDIO / PEOPLE
+   ============================================================ */
+.studio__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,4rem);align-items:start}
+@media (max-width:860px){.studio__grid{grid-template-columns:1fr}}
+.studio__lead{font-family:var(--f-display);font-weight:600;font-size:var(--step-2);letter-spacing:-.02em;line-height:1.12;max-width:20ch}
+.studio__body{margin-top:1.4rem;color:var(--fg-muted);max-width:52ch}
+.people{display:grid;gap:1px;background:var(--hairline);border:1px solid var(--hairline)}
+.person{background:var(--bg);padding:1.5rem 1.6rem;display:flex;gap:1.1rem;align-items:flex-start}
+.person__badge{
+  font-family:var(--f-mono);font-weight:600;font-size:.72rem;letter-spacing:.08em;
+  border:1px solid var(--accent);color:var(--accent);padding:.35rem .5rem;white-space:nowrap;margin-top:.2rem;
+}
+.person__name{font-family:var(--f-display);font-weight:700;font-size:var(--step-1)}
+.person__role{font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.06em;color:var(--fg-muted);text-transform:uppercase;margin-top:.25rem}
+
+/* ============================================================
+   CLIENTI
+   ============================================================ */
+.clients{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hairline);border:1px solid var(--hairline);margin-top:clamp(1.6rem,3vw,2.4rem)}
+.client{background:var(--bg);padding:clamp(1.6rem,3vw,2.4rem);min-height:150px}
+.client__k{font-family:var(--f-mono);font-size:var(--step--1);color:var(--fg-muted)}
+.client__t{font-family:var(--f-display);font-weight:800;font-size:var(--step-2);letter-spacing:-.02em;margin:.5rem 0}
+.client__d{color:var(--fg-muted);font-size:var(--step--1)}
+@media (max-width:720px){.clients{grid-template-columns:1fr}}
+
+/* ============================================================
+   CONTATTI
+   ============================================================ */
+.contact{background:var(--ink);color:#EAF0F6;position:relative;overflow:hidden}
+.contact::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(120,164,210,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,164,210,.07) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(120% 90% at 90% 0%,#000,transparent 70%);
+}
+.contact .section__index{color:rgba(180,200,220,.6)}
+.contact .section__index::after{background:rgba(120,164,210,.25)}
+.contact__grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(2.5rem,6vw,5rem);align-items:start;position:relative}
+@media (max-width:860px){.contact__grid{grid-template-columns:1fr;gap:2.5rem}}
+.contact__cta{font-size:var(--step-3);font-weight:800;letter-spacing:-.02em;max-width:16ch;color:#F3F7FB}
+.contact__cta em{font-style:normal;color:var(--accent)}
+.contact__lead{margin-top:1.2rem;color:rgba(200,216,232,.8);max-width:44ch}
+.contact__actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
+.info{display:grid;gap:1px;background:rgba(120,164,210,.18);border:1px solid rgba(120,164,210,.18)}
+.info__row{background:var(--ink);padding:1.2rem 1.3rem}
+.info__k{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(180,200,220,.55);display:block;margin-bottom:.4rem}
+.info__v{font-size:var(--step-0);color:#EAF0F6}
+.info__v a{border-bottom:1px solid rgba(210,96,58,.5);transition:border-color .2s}
+.info__v a:hover{border-color:var(--accent)}
+.info__v .muted{color:rgba(180,200,220,.5)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{background:var(--ink);color:rgba(180,200,220,.55);border-top:1px solid rgba(120,164,210,.16)}
+.footer__grid{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center;padding-block:2rem;font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.04em}
+.footer a:hover{color:#EAF0F6}
+
+/* ============================================================
+   REVEAL animation (rest state = visible; JS toggles pre-state)
+   ============================================================ */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+.js .reveal.d1{transition-delay:.08s}
+.js .reveal.d2{transition-delay:.16s}
+.js .reveal.d3{transition-delay:.24s}
+.js .reveal.d4{transition-delay:.32s}
+
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1 !important;transform:none !important;transition:none}
+  .btn:hover,.svc:hover{transform:none}
+  .step__line::after{transition:none}
+  *{scroll-behavior:auto !important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <a class="brand" href="#top" aria-label="Studio Tecnico Soldati — inizio pagina">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">STUDIO&nbsp;TECNICO <span>/ SOLDATI</span></span>
+  </a>
+  <nav class="nav__links" aria-label="Sezioni">
+    <a href="#studio">Studio</a>
+    <a href="#servizi">Servizi</a>
+    <a href="#processo">Metodo</a>
+    <a href="#contatti">Contatti</a>
+  </nav>
+  <a class="nav__cta" href="tel:+390541781314">
+    <span aria-hidden="true">☏</span> 0541 781314
+  </a>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<main id="top">
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true">
+    <!-- Foto placeholder sostituibile: cambia il src (o metti un file locale hero.jpg). -->
+    <img id="heroPhoto"
+         src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2000&q=70"
+         alt="" loading="eager" decoding="async"
+         onerror="this.style.display='none'">
+  </div>
+  <div class="hero__grid" aria-hidden="true"></div>
+  <svg class="hero__marks" aria-hidden="true" width="100%" height="100%" preserveAspectRatio="none">
+    <g stroke="currentColor" stroke-width="1" fill="none">
+      <path d="M40 40 h26 M40 40 v26" />
+      <circle cx="40" cy="40" r="3" />
+    </g>
+  </svg>
+
+  <div class="wrap hero__inner">
+    <p class="hero__meta reveal">
+      <span>Rimini · IT</span>
+      <span class="dot">◆</span>
+      <span>44.0594° N — 12.5651° E</span>
+      <span class="dot">◆</span>
+      <span>Architettura + Struttura</span>
+    </p>
+
+    <h1 id="hero-title" class="reveal d1">Progettiamo<br>edifici che <em>stanno&nbsp;in&nbsp;piedi.</em></h1>
+
+    <p class="hero__sub reveal d2">
+      Studio Tecnico Soldati. Progettazione architettonica e strutturale a Rimini —
+      dalla verifica sismica agli impianti, dal catasto all'urbanistica. Un unico
+      interlocutore, dal primo schizzo alla fine del cantiere.
+    </p>
+
+    <div class="hero__actions reveal d3">
+      <a class="btn btn--primary" href="#contatti">Richiedi una consulenza <span class="btn__arrow" aria-hidden="true">↗</span></a>
+      <a class="btn btn--ghost" href="tel:+393472516802">Chiama · 347 2516802</a>
+    </div>
+  </div>
+
+  <div class="hero__foot" aria-hidden="true">
+    <span>ARCH. PAOLO SOLDATI · ING. MASSIMILIANO SOLDATI</span>
+    <span>PROGETTAZIONE · SISMICA · IMPIANTI · CATASTO · URBANISTICA</span>
+    <span>EST. RIMINI</span>
+  </div>
+</section>
+
+<!-- ===================== MANIFESTO ===================== -->
+<section class="section manifesto" id="studio" aria-labelledby="man-title">
+  <div class="wrap">
+    <p class="section__index">01 — Chi siamo</p>
+    <h2 id="man-title" class="manifesto__lead reveal">
+      Uno studio dove <span class="hl">architettura e ingegneria</span> lavorano
+      allo stesso tavolo, sullo stesso progetto.
+    </h2>
+
+    <div class="manifesto__grid">
+      <div class="manifesto__cell reveal">
+        <span class="k">Disciplina</span>
+        <span class="v">Progettazione architettonica e strutturale integrata: forma e calcolo decisi insieme, non uno dopo l'altro.</span>
+      </div>
+      <div class="manifesto__cell reveal d1">
+        <span class="k">Competenza</span>
+        <span class="v">Verifica e adeguamento sismico, impianti idraulici ed elettrici, pratiche catastali e progettazione urbanistica.</span>
+      </div>
+      <div class="manifesto__cell reveal d2">
+        <span class="k">Territorio</span>
+        <span class="v">Rimini e il suo entroterra. Conosciamo enti, vincoli e regolamenti locali — le pratiche corrono più lisce.</span>
+      </div>
+      <div class="manifesto__cell reveal d3">
+        <span class="k">Interlocutori</span>
+        <span class="v">Privati, enti pubblici e aziende. Un referente unico dall'incarico al collaudo.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVIZI ===================== -->
+<section class="section" id="servizi" aria-labelledby="svc-title">
+  <div class="wrap">
+    <p class="section__index">02 — Servizi</p>
+    <div class="services__head">
+      <h2 class="services__title reveal" id="svc-title">Tutto quello che serve, sotto un solo studio.</h2>
+      <p class="services__note reveal d1">Sei ambiti di competenza che coprono l'intero ciclo di un intervento edilizio, dalla struttura all'ultima pratica.</p>
+    </div>
+
+    <div class="svc-list">
+      <article class="svc reveal">
+        <span class="svc__num">01</span>
+        <div><h3 class="svc__name">Progettazione strutturale</h3><p class="svc__desc">Calcolo e verifica di strutture in cemento armato, acciaio, legno e muratura. Nuove costruzioni, ampliamenti e interventi sull'esistente.</p></div>
+        <span class="svc__tag">Calcolo</span>
+      </article>
+      <article class="svc reveal">
+        <span class="svc__num">02</span>
+        <div><h3 class="svc__name">Progettazione sismica</h3><p class="svc__desc">Valutazione della vulnerabilità, miglioramento e adeguamento sismico. Analisi mirate per la zona di Rimini e pratiche al Genio Civile.</p></div>
+        <span class="svc__tag">Sismica</span>
+      </article>
+      <article class="svc reveal">
+        <span class="svc__num">03</span>
+        <div><h3 class="svc__name">Progettazione architettonica</h3><p class="svc__desc">Dallo studio di fattibilità al progetto esecutivo: nuove costruzioni, ristrutturazioni e recupero, con direzione lavori in cantiere.</p></div>
+        <span class="svc__tag">Architettura</span>
+      </article>
+      <article class="svc reveal">
+        <span class="svc__num">04</span>
+        <div><h3 class="svc__name">Impiantistica idraulica ed elettrica</h3><p class="svc__desc">Progettazione degli impianti tecnologici: idrico-sanitari, termici ed elettrici, coordinati con il progetto architettonico e strutturale.</p></div>
+        <span class="svc__tag">Impianti</span>
+      </article>
+      <article class="svc reveal">
+        <span class="svc__num">05</span>
+        <div><h3 class="svc__name">Pratiche catastali</h3><p class="svc__desc">Accatastamenti, variazioni, frazionamenti, volture e rilievi. Gestione completa delle pratiche presso il Catasto.</p></div>
+        <span class="svc__tag">Catasto</span>
+      </article>
+      <article class="svc reveal">
+        <span class="svc__num">06</span>
+        <div><h3 class="svc__name">Progettazione urbanistica</h3><p class="svc__desc">Piani attuativi, lottizzazioni e strumenti urbanistici. Supporto tecnico a privati, aziende ed enti nel rapporto con la pubblica amministrazione.</p></div>
+        <span class="svc__tag">Urbanistica</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROCESSO ===================== -->
+<section class="section process" id="processo" aria-labelledby="proc-title">
+  <div class="wrap">
+    <p class="section__index">03 — Metodo</p>
+    <h2 class="process__title reveal" id="proc-title">Un percorso in quattro fasi, senza sorprese.</h2>
+
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step__n">01</span>
+        <div class="step__line"></div>
+        <div class="step__name">Sopralluogo</div>
+        <p class="step__desc">Incontro, rilievo e ascolto delle esigenze. Verifica dello stato di fatto e dei vincoli.</p>
+      </div>
+      <div class="step reveal d1">
+        <span class="step__n">02</span>
+        <div class="step__line"></div>
+        <div class="step__name">Progetto</div>
+        <p class="step__desc">Soluzione architettonica, calcolo strutturale e impianti sviluppati in modo integrato.</p>
+      </div>
+      <div class="step reveal d2">
+        <span class="step__n">03</span>
+        <div class="step__line"></div>
+        <div class="step__name">Pratiche & Enti</div>
+        <p class="step__desc">Permessi, catasto, sismica e rapporti con Comune ed enti. Ce ne occupiamo noi.</p>
+      </div>
+      <div class="step reveal d3">
+        <span class="step__n">04</span>
+        <div class="step__line"></div>
+        <div class="step__name">Cantiere</div>
+        <p class="step__desc">Direzione lavori e controllo fino alla consegna. Il progetto rispettato fino in fondo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STUDIO / PEOPLE ===================== -->
+<section class="section" id="professionisti" aria-labelledby="std-title">
+  <div class="wrap">
+    <p class="section__index">04 — Lo studio</p>
+    <div class="studio__grid">
+      <div>
+        <h2 class="studio__lead reveal" id="std-title">Due firme, una responsabilità: la vostra opera.</h2>
+        <p class="studio__body reveal d1">
+          Lo Studio Tecnico Soldati nasce dall'incontro tra progettazione architettonica
+          e ingegneria strutturale. Un architetto e un ingegnere che condividono ogni
+          scelta di progetto: è così che estetica, sicurezza e fattibilità restano
+          sempre allineate, dal concept al cantiere.
+        </p>
+      </div>
+      <div class="people">
+        <div class="person reveal d1">
+          <span class="person__badge">ARCH</span>
+          <div>
+            <div class="person__name">Paolo Soldati</div>
+            <div class="person__role">Architetto · Progettazione architettonica</div>
+          </div>
+        </div>
+        <div class="person reveal d2">
+          <span class="person__badge">ING</span>
+          <div>
+            <div class="person__name">Massimiliano Soldati</div>
+            <div class="person__role">Ingegnere · Strutture & sismica</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A CHI CI RIVOLGIAMO -->
+    <div class="clients">
+      <div class="client reveal">
+        <span class="client__k">/01</span>
+        <div class="client__t">Privati</div>
+        <p class="client__d">Case, ristrutturazioni e adeguamenti. Seguiti passo passo, con un linguaggio chiaro.</p>
+      </div>
+      <div class="client reveal d1">
+        <span class="client__k">/02</span>
+        <div class="client__t">Enti</div>
+        <p class="client__d">Opere pubbliche e pratiche urbanistiche, nel rispetto di procedure e tempi.</p>
+      </div>
+      <div class="client reveal d2">
+        <span class="client__k">/03</span>
+        <div class="client__t">Aziende</div>
+        <p class="client__d">Capannoni, uffici e interventi produttivi, con attenzione a struttura e impianti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTATTI ===================== -->
+<section class="section contact" id="contatti" aria-labelledby="cta-title">
+  <div class="wrap">
+    <p class="section__index">05 — Contatti</p>
+    <div class="contact__grid">
+      <div>
+        <h2 class="contact__cta reveal" id="cta-title">Raccontateci<br>la vostra <em>idea.</em></h2>
+        <p class="contact__lead reveal d1">
+          Una consulenza iniziale per capire fattibilità, tempi e costi.
+          Nessun impegno: solo un parere tecnico onesto sul vostro progetto.
+        </p>
+        <div class="contact__actions reveal d2">
+          <a class="btn btn--primary" href="mailto:architetto_9@libero.it?subject=Richiesta%20consulenza%20-%20Studio%20Tecnico%20Soldati">Scrivici una email <span class="btn__arrow" aria-hidden="true">↗</span></a>
+          <a class="btn btn--ghost" href="tel:+390541781314">Chiama lo studio</a>
+        </div>
+      </div>
+
+      <div class="info reveal d1">
+        <div class="info__row">
+          <span class="info__k">Indirizzo</span>
+          <span class="info__v"><a href="https://www.google.com/maps/search/?api=1&query=Vicolo+San+Gregorio+22+47923+Rimini" target="_blank" rel="noopener">Vicolo San Gregorio, 22<br>47923 Rimini (RN)</a></span>
+        </div>
+        <div class="info__row">
+          <span class="info__k">Telefono</span>
+          <span class="info__v"><a href="tel:+390541781314">0541 781314</a> · <a href="tel:+393472516802">347 2516802</a></span>
+        </div>
+        <div class="info__row">
+          <span class="info__k">Email</span>
+          <span class="info__v"><a href="mailto:architetto_9@libero.it">architetto_9@libero.it</a></span>
+        </div>
+        <div class="info__row">
+          <span class="info__k">Orari</span>
+          <span class="info__v">Lun — Ven · 09:00–13:00 / 15:00–19:00<br><span class="muted">Sabato e Domenica · chiuso</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <span>© <span id="year">2026</span> STUDIO TECNICO SOLDATI · RIMINI</span>
+    <span>P.IVA 00000000000 · <span style="opacity:.7">da compilare</span></span>
+    <a href="#top">TORNA SU ↑</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+  root.classList.add("js");
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Year */
+  var y=document.getElementById("year"); if(y) y.textContent=new Date().getFullYear();
+
+  /* ---- Reveal on scroll ---- */
+  var revs=[].slice.call(document.querySelectorAll(".reveal"));
+  if(reduce || !("IntersectionObserver" in window)){
+    revs.forEach(function(el){el.classList.add("in");});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    },{rootMargin:"0px 0px -8% 0px",threshold:.12});
+    revs.forEach(function(el){io.observe(el);});
+  }
+
+  /* ---- Process line-draw trigger ---- */
+  var steps=[].slice.call(document.querySelectorAll(".step"));
+  if(!reduce && "IntersectionObserver" in window){
+    var io2=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io2.unobserve(e.target);} });
+    },{threshold:.4});
+    steps.forEach(function(el){io2.observe(el);});
+  }else{ steps.forEach(function(el){el.classList.add("in");}); }
+
+  /* ---- Scroll progress + hero parallax (rAF throttled) ---- */
+  var bar=document.getElementById("progressBar");
+  var photo=document.getElementById("heroPhoto");
+  var ticking=false;
+  function onScroll(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){
+      var st=window.pageYOffset||document.documentElement.scrollTop;
+      var h=document.documentElement.scrollHeight-window.innerHeight;
+      var p=h>0?Math.min(st/h,1):0;
+      if(bar) bar.style.transform="scaleX("+p+")";
+      if(photo && !reduce && st<window.innerHeight){
+        photo.style.transform="translateY("+(st*0.12)+"px)";
+      }
+      ticking=false;
+    });
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
