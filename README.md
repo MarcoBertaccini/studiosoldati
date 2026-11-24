@@ -1,53 +1,52 @@
-# Studio Tecnico Soldati — Landing page
+# Demo sito, Geom. Claudio Babini (Ravenna)
 
-Landing page one-page per lo Studio Tecnico Soldati (Rimini). Progettazione
-architettonica e strutturale, sismica, impiantistica, catasti e urbanistica.
+Demo vetrina realizzata da Zenith Studio per un prospect: studio tecnico di un
+geometra a Ravenna. Sito statico, pronto per GitHub Pages.
 
-Sito **statico self-contained**: un unico file `index.html` con CSS e JS inline.
-Nessun build, nessuna dipendenza da installare. I font arrivano da Google Fonts,
-l'unica risorsa esterna oltre alla foto della hero.
+## File
 
-## Come vederlo
+- `index.html` : la pagina (una sola)
+- `style.css` : stile
+- `script.js` : menu mobile e comparse allo scroll
+- `img/` : immagini (`hero.webp` e' una foto stock, da sostituire)
+- `DESIGN.md` : direzione visiva
+- `CNAME` : dominio di pubblicazione (ora `babini.zenith-studio.it`)
 
-Apri `index.html` con un doppio click nel browser, oppure servi la cartella:
+## Come vederlo in locale
+
+Apri `index.html` nel browser, oppure:
 
 ```bash
 python3 -m http.server 8000
 # poi apri http://localhost:8000
 ```
 
-## Come pubblicarlo
+## Pubblicazione (GitHub Pages)
 
-Essendo statico, va ovunque: GitHub Pages, Netlify, Vercel, o un qualsiasi
-hosting che serve file. Basta caricare `index.html` (più eventuali immagini).
-Per GitHub Pages: Settings → Pages → deploy dal branch, cartella `/root`.
+Carica i file nella root del branch e attiva Pages (Settings, Pages, branch).
+Il `CNAME` punta a `babini.zenith-studio.it`: cambialo o rimuovilo se usi un
+altro dominio. In quel caso aggiorna anche i meta `canonical` e `og:*` in
+`index.html`.
 
-## Cosa personalizzare
+## IMPORTANTE: dati da confermare prima di andare online
 
-- **Foto della hero** — attualmente è un placeholder da Unsplash. Cerca
-  `id="heroPhoto"` in `index.html` e cambia il `src`, oppure metti un file
-  locale (es. `hero.jpg`) accanto all'`index.html` e usa `src="hero.jpg"`.
-  Se l'immagine non carica, la hero resta comunque leggibile grazie a uno
-  sfondo di fallback.
-- **P.IVA** — segnaposto `00000000000` nel footer, da sostituire con quella reale.
-- **Foto reali / logo dello studio** — quando disponibili, si possono inserire
-  nelle sezioni "Studio" e nell'header.
-- **Contenuti** — tutti i testi sono nel body dell'`index.html`, in italiano,
-  facilmente modificabili.
+Nessun dato reale di Babini era disponibile. Tutto cio' che e' segnato
+"da verificare" nel sito va confermato con il cliente e sostituito in
+`index.html`:
 
-## Dati dello studio (contenuti nel sito)
+- Telefono, WhatsApp, email (ora segnaposto `0544 000000`, `347 000000`,
+  `info@example.it` con link `tel:` e `wa.me` fittizi)
+- Indirizzo della sede e orari di apertura
+- P.IVA e numero di iscrizione al Collegio Geometri di Ravenna
+- Anni di attivita'
+- Elenco dei comuni serviti (ora indicativo: Ravenna, Cervia, Russi,
+  Bagnacavallo, Lugo, Faenza)
+- Elenco esatto dei servizi con le parole del cliente
 
-- Indirizzo: Vicolo San Gregorio, 22 — 47923 Rimini (RN)
-- Telefono: 0541 781314 / 347 2516802
-- Email: architetto_9@libero.it
-- Orari: Lun–Ven 09:00–13:00 e 15:00–19:00 · Sab–Dom chiuso
-- Professionisti: Arch. Paolo Soldati · Ing. Massimiliano Soldati
+## Immagini da sostituire
 
-## Note tecniche
+- `img/hero.webp` : foto stock (persona che disegna tavole tecniche). Va
+  sostituita con una foto reale dello studio o del geometra al lavoro.
 
-- Design "tecnico/blueprint": griglia modulare, tipografia Archivo + IBM Plex
-  Sans/Mono, palette ink navy + carta calda + accento arancio.
-- Animazioni allo scroll con `IntersectionObserver`, scroll-progress e parallax.
-- Supporto tema chiaro/scuro (segue le preferenze di sistema).
-- Rispetta `prefers-reduced-motion` e le regole base di accessibilità.
-- Responsive fino a ~360px di larghezza.
+La mappa in "Dove lavoro" e' centrata su Ravenna: va ricentrata sull'indirizzo
+reale una volta noto.
